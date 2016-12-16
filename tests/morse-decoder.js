@@ -13,4 +13,7 @@ describe("MorseDecoder",function(){
     it("should decode 'trailing commas' as two words",function(){
         expect(MorseDecoder.decode("trailing commas")).to.eql("- .-. .- .. .-.. .. -. --.   -.-. --- -- -- .- ...");
     });
+    it("should treat 'MiXeDcAsE' case insensitively",function(){
+        expect(MorseDecoder.decode("MiXeDcAsE")).to.eql("-- .. -..- . -.. -.-. .- ... .");
+    });
 });
