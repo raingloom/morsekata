@@ -10,4 +10,7 @@ describe("MorseDecoder",function(){
     it("should decode 'lua' as a word",function(){
         expect(MorseDecoder.decode("lua")).to.eql(".-.. ..- .-");
     });
+    it("should decode 'trailing commas' as two words",function(){
+        expect(MorseDecoder.decode("trailing commas")).to.eql("- .-. .- .. .-.. .. -. --.   -.-. --- -- -- .- ...");
+    });
 });
