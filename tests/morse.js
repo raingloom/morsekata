@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 let expect = require("chai").expect;
 
 let Morse = require("../morse");
@@ -20,5 +20,5 @@ describe("Morse",function(){
         it("should ignore unknown characters",function(){
             expect(Morse.decode("!@!$#$%#$%#^")).to.eql("");
         });
-    })
+    });
 });
