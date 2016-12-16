@@ -16,4 +16,7 @@ describe("MorseDecoder",function(){
     it("should treat 'MiXeDcAsE' case insensitively",function(){
         expect(MorseDecoder.decode("MiXeDcAsE")).to.eql("-- .. -..- . -.. -.-. .- ... .");
     });
+    it("should ignore unknown characters",function(){
+        expect(MorseDecoder.decode("!@!$#$%#$%#^")).to.eql("");
+    });
 });

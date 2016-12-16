@@ -6,7 +6,11 @@ let MorseDecoder = {
         let buffer=[];
         for(let character of plaintext){
             character=character.toLowerCase();
-            buffer.push((alphabet[character] || ""));
+            let morseCharacter = alphabet[character];
+            if (morseCharacter !== undefined)
+            {
+                buffer.push(morseCharacter);
+            }
         }
         return buffer.join(" ");
     }
