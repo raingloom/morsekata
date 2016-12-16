@@ -37,6 +37,8 @@ module.exports = {
     "z": "--..",
     "4": "....-",
     //extensions:
-    "sos": "...---..."
+    "sos": "...---...",
+    //whitespace
+    " ": " "
 };
 //can't really test this, besides comparing it against itself, but then what's the point
