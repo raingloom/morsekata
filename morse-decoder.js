@@ -3,11 +3,11 @@ let alphabet = require('./morse-alphabet');
 
 let MorseDecoder = {
     decode: function(plaintext){
-        let buffer="";
+        let buffer=[];
         for(let character of plaintext){
-            buffer+=alphabet[character] || '';
+            buffer.push(alphabet[character] || "");
         }
-        return buffer;
+        return buffer.join(" ");
     }
 };
 
