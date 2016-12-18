@@ -2,7 +2,7 @@
 let alphabet = require('./morse-alphabet');
 
 let MorseDecoder = {
-    decode: function(plaintext){
+    encode: function(plaintext){
         let buffer=[];
         for(let character of plaintext){
             character=character.toLowerCase();
