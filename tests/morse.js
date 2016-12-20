@@ -29,12 +29,12 @@ describe("Morse",function(){
             }
             expect(accum).to.eql([".-"]);
         });
-        it("should handle two characters",function(){
+        it("should handle multiple characters",function(){
             let accum=[];
-            for(let x of Morse.morseStream(".- .-")){
+            for(let x of Morse.morseStream(".-.. ..- .-")){
                 accum.push(x);
             }
-            expect(accum).to.eql([".-",".-"]);
+            expect(accum).to.eql([".-..", "..-", ".-"]);
         });
     });
     describe(".decode",function() {
