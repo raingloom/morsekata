@@ -14,13 +14,6 @@ let MorseDecoder = {
         }
         return buffer.join(" ");
     },
-    decode: function(morsetext){
-        let buffer=[];
-        for(let character in MorseDecoder.morseStream(morsetext)){
-            buffer.push(character);
-        }
-        return buffer.join().toUpperCase();
-    },
     morseStream: function(morsetext){
         return {
             [Symbol.iterator]: function*(){
@@ -39,7 +32,14 @@ let MorseDecoder = {
                 }
             }
         };
-    }
+    },
+    decode: function(morsetext){
+        let buffer=[];
+        for(let character in MorseDecoder.morseStream(morsetext)){
+            buffer.push(character);
+        }
+        return buffer.join().toUpperCase();
+    },
 };
 
 
