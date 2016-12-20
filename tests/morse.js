@@ -29,6 +29,13 @@ describe("Morse",function(){
             }
             expect(accum).to.eql([".-"]);
         });
+        it("should handle two characters",function(){
+            let accum=[];
+            for(let x of Morse.morseStream(".- .-")){
+                accum.push(x);
+            }
+            expect(accum).to.eql([".-",".-"]);
+        });
     });
     describe(".decode",function() {
         it("should decode .- as 'A'",function(){
