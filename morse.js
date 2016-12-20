@@ -1,5 +1,9 @@
 'use strict';
 let alphabet = require('./morse-alphabet');
+//create reverse lookups
+for(let k in alphabet ){
+    alphabet[alphabet[k]] = k;
+}
 
 let MorseDecoder = {
     encode: function(plaintext){
@@ -33,12 +37,15 @@ let MorseDecoder = {
             }
         };
     },
+    decodeSingle: function(character){
+        return alphabet[character];
+    },
     decode: function(morsetext){
         let buffer=[];
-        for(let character in MorseDecoder.morseStream(morsetext)){
-            buffer.push(character);
+        for(let character of MorseDecoder.morseStream(morsetext)){
+            buffer.push(MorseDecoder.decodeSingle(character));
         }
-        return buffer.join().toUpperCase();
+        return buffer.join(' ').toUpperCase();
     },
 };
 
