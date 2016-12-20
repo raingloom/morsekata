@@ -51,5 +51,8 @@ describe("Morse",function(){
         it("should decode '.-.. ..- .-' as 'LUA'",function(){
             expect(Morse.decode(".-.. ..- .-")).to.eql("LUA");
         });
+        it("should decode '   .-.. ..- .-    ' as 'LUA' without regard for leading and trailing whitespace",function(){
+            expect(Morse.decode("   .-.. ..- .-    ")).to.eql("LUA");
+        });
     });
 });
