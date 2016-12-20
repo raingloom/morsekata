@@ -13,6 +13,33 @@ let MorseDecoder = {
             }
         }
         return buffer.join(" ");
+    },
+    decode: function(morsetext){
+        let buffer=[];
+        for(let character in MorseDecoder.morseStream(morsetext)){
+            buffer.push(character);
+        }
+        return buffer.join().toUpperCase();
+    },
+    morseStream: function(morsetext){
+        return {
+            [Symbol.iterator]: function*(){
+                let buffer=[];
+                for(let character of morsetext.trim()){
+                    console.log(character);
+                    //make sure triple space is decoded correctly
+                    if(character===' ' && buffer.length>0){
+                        yield buffer.join('');
+                        buffer=[];
+                    } else {
+                        buffer.push(character);
+                    }
+                }
+                if(buffer.length>0){
+                    yield buffer.join('');
+                }
+            }
+        };
     }
 };
 

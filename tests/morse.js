@@ -21,4 +21,18 @@ describe("Morse",function(){
             expect(Morse.encode("!@!$#$%#$%#^")).to.eql("");
         });
     });
+    describe(".morseStream",function() {
+        it("should handle single character",function(){
+            let accum=[];
+            for(let x of Morse.morseStream(".-")){
+                accum.push(x);
+            }
+            expect(accum).to.eql([".-"]);
+        });
+    });
+    describe(".decode",function() {
+        it("should decode .- as 'A'",function(){
+            expect(Morse.decode(".-")).to.eql("A");
+        });
+    });
 });
