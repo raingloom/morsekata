@@ -26,7 +26,6 @@ let MorseDecoder = {
             [Symbol.iterator]: function*(){
                 let buffer=[];
                 for(let character of morsetext.trim()){
-                    console.log(character);
                     //make sure triple space is decoded correctly
                     if(character===' ' && buffer.length>0){
                         yield buffer.join('');
