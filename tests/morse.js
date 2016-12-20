@@ -48,5 +48,8 @@ describe("Morse",function(){
         it("should decode .- as 'A'",function(){
             expect(Morse.decode(".-")).to.eql("A");
         });
+        it("should decode '.-.. ..- .-' as 'LUA'",function(){
+            expect(Morse.decode(".-.. ..- .-")).to.eql("LUA");
+        });
     });
 });

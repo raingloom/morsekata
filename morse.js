@@ -45,7 +45,7 @@ let MorseDecoder = {
         for(let character of MorseDecoder.morseStream(morsetext)){
             buffer.push(MorseDecoder.decodeSingle(character));
         }
-        return buffer.join(' ').toUpperCase();
+        return buffer.join('').toUpperCase();
     },
 };
 
