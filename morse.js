@@ -5,7 +5,7 @@ for(let k in alphabet ){
     alphabet[alphabet[k]] = k;
 }
 
-let MorseDecoder = {
+let Morse = {
     encode: function(plaintext){
         let buffer=[];
         for(let character of plaintext.trim()){
@@ -42,8 +42,8 @@ let MorseDecoder = {
     },
     decode: function(morsetext){
         let buffer=[];
-        for(let character of MorseDecoder.morseStream(morsetext)){
-            buffer.push(MorseDecoder.decodeSingle(character));
+        for(let character of Morse.morseStream(morsetext)){
+            buffer.push(Morse.decodeSingle(character));
         }
         return buffer.join('').toUpperCase();
     },
@@ -51,4 +51,4 @@ let MorseDecoder = {
 
 
 
-module.exports = MorseDecoder;
+module.exports = Morse;
