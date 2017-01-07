@@ -14,7 +14,7 @@ describe("Users",function(){
         it("should not work with real name only",function(){
             expect(
                 function(){
-                    Users.register("testUser","Mr User of Testonia");
+                    Users.register(null,"Mr User of Testonia");
                 }
             ).to.throw(Users.UserExistsException);
         });
