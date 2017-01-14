@@ -29,5 +29,15 @@ describe('Users',function(){
                 });
             }).to.throw(Users.invalidUserError);
         });
+        it('should not double add',function(){
+            Users.addUser({
+                name: 'testuser',
+            });
+            expect(function() {
+                Users.addUser({
+                    name: 'testuser',
+                });
+            }).to.throw(Users.InvalidUserError);
+        });
     });
 });

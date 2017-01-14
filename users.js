@@ -14,18 +14,19 @@ let Users = {
     },
     addUser: function(user) {
         //TODO: umm. do i copy this? do i keep it as a reference? sigh. I want Rust :C
-        if(Users.validateUser(user)) {
+        if(! Users.validateUser(user)) {
+            throw new Users.InvalidUserError('user object is in incorrent format',user);
+        }
+        if(typeof(Users.Registry[user.name]) === 'undefined') {
             Users.Registry[user.name] = user;
         } else {
-            throw Users.InvalidUserError('user.name is missing or is not a string',user);
+            throw new Users.InvalidUserError('user already exists',user);
         }
     },
     validateUser: function(user) {
-        return typeof(user.name)==='string' &&
-        (
-            typeof(user.realname)==='undefined' ||
-            typeof(user.realname)==='string'
-        );
+        return typeof(user.name) === 'string' &&
+        (typeof(user.fullname) === 'undefined' ||
+        typeof(user.fullname) === 'string');
     },
 };
 
