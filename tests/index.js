@@ -6,29 +6,31 @@ let expect = require("chai").expect;
 chai.use(require("chai-http"));
 
 let app = require("./../app");
+let Users = require("./../users");//a bit ugly but meh. this aint no nail.
 let server;
 
 describe("HTTP API",function() {
-    beforeEach(function() {
+    before(function() {
         server = app.listen();//let OS decide port and hostname
+    });
+    beforeEach(function() {
+        Users.clearRegistry();
     });
     it('should add user by nickname',function(){
         chai.request(server)
-            .get("/user/:testuser")
+            .post("/users/testuser")
             .end((err,res) => {
-                console.log(res);
                 expect(res).to.have.status(200);
             });
     });
     it('should add user with nickname and full name',function(){
-        Users.addUser({
-            name: 'testuser',
-            fullname: 'Test User',
-        });
-        expect(Users.getUser('testuser').name).to.eql('testuser');
-        expect(Users.getUser('testuser').fullname).to.eql('Test User');
+        chai.request(server)
+            .post("/users/testuser")
+            .end((err,res) => {
+                expect(res).to.have.status(200);
+            });
     });
-    it('should fail with full name only',function(){
+    /*it('should fail with full name only',function(){
         expect(function(){
             Users.addUser({
                 fullname: 'Test User',
@@ -44,5 +46,5 @@ describe("HTTP API",function() {
                 name: 'testuser',
             });
         }).to.throw(Users.InvalidUserError);
-    });
+    });*/
 });
