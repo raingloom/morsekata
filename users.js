@@ -1,5 +1,9 @@
 'use strict';
 
+const NE = require('node-exceptions');
+
+let Session = require("./session");
+
 let Users = {
     Registry: {},
     clearRegistry: function() {
@@ -13,7 +17,7 @@ let Users = {
         if(Users.validateUser(user)) {
             Users.Registry[user.name] = user;
         } else {
-            throw Users.invalidUserError('user.name is missing or is not a string',user);
+            throw Users.InvalidUserError('user.name is missing or is not a string',user);
         }
     },
     validateUser: function(user) {
@@ -23,9 +27,18 @@ let Users = {
             typeof(user.realname)==='string'
         );
     },
+    setToken: function(name, token) {
+        Users.Registry[name].token = token;
+    },
+    getToken: function(name, token) {
+        return Users.Registry[name].token;
+    },
+    generateTokenForUser: function(name) {
+        Users.setToken(name,Session.generate());
+    },
 };
 
-Users.invalidUserError = function
+Users.InvalidUserError = class extends NE.RuntimeException {};
 
 
 module.exports = Users;
