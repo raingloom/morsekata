@@ -27,15 +27,6 @@ let Users = {
             typeof(user.realname)==='string'
         );
     },
-    setToken: function(name, token) {
-        Users.Registry[name].token = token;
-    },
-    getToken: function(name, token) {
-        return Users.Registry[name].token;
-    },
-    generateTokenForUser: function(name) {
-        Users.setToken(name,Session.generate());
-    },
 };
 
 Users.InvalidUserError = class extends NE.RuntimeException {};
