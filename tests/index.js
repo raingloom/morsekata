@@ -6,26 +6,22 @@ let expect = require("chai").expect;
 chai.use(require("chai-http"));
 
 let app = require("./../app");
-let Users = require("./../users");//a bit ugly but meh. this aint no nail.
 let server;
 
 describe("HTTP API",function() {
     before(function() {
         server = app.listen();//let OS decide port and hostname
     });
-    beforeEach(function() {
-        Users.clearRegistry();
-    });
     it('should add user by nickname',function(){
         chai.request(server)
-            .post("/users/testuser")
+            .post("/users/test1")
             .end((err,res) => {
                 expect(res).to.have.status(200);
             });
     });
     it('should add user with nickname and full name',function(){
         chai.request(server)
-            .post("/users/testuser")
+            .post("/users/test2/Test the Two")
             .end((err,res) => {
                 expect(res).to.have.status(200);
             });
