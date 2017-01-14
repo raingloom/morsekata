@@ -13,12 +13,12 @@ let Session = {
         id = 0;
     },
     setToken: function(name, token) {
-        Session.Data[name].token = token;
+        Session.Data[name] = token;
     },
-    getToken: function(name, token) {
-        return Session.Data[name].token;
+    getToken: function(name) {
+        return Session.Data[name];
     },
-    generateTokenForUser: function(name) {
+    generateFor: function(name) {
         Session.setToken(name,Session.generate());
     },
     checkToken: function(name, token) {
