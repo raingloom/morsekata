@@ -12,7 +12,6 @@ let Messages = require("./messages");
 
 app.post('/users/:name/:fullname?',function(req, res){
     try {
-        console.log(req.params);
         Users.addUser({
             name: req.params.name,
             fullname: req.params.fullname,
