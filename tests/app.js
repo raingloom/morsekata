@@ -23,7 +23,10 @@ describe("HTTP API",function() {
     describe('registration',function() {
         it('should add user by nickname',function(done){
             chai.request(server)
-                .post("/users/test1")
+                .post("/users")
+                .send({
+                    username: "test1"
+                })
                 .end((err,res) => {
                     testForOkResponse(res);
                     done();
@@ -31,7 +34,11 @@ describe("HTTP API",function() {
         });
         it('should add user with nickname and full name',function(done){
             chai.request(server)
-                .post("/users/test2/Test the Two")
+                .post("/users")
+                .send({
+                    username: "test2",
+                    name: "Test the Two",
+                })
                 .end((err,res) => {
                     testForOkResponse(res);
                     done();
@@ -40,11 +47,17 @@ describe("HTTP API",function() {
         it('should give different tokens for users',function(done){
             let token1, token2;
             chai.request(server)
-                .post("/users/testA")
+                .post("/users")
+                .send({
+                    username: "testA"
+                })
                 .end((err,res) => {
                     token1=res.body.token;
                     chai.request(server)
-                        .post("/users/testB")
+                        .post("/users")
+                        .send({
+                            username: "testB"
+                        })
                         .end((err,res) => {
                             token2=res.body.token;
                             expect(token1).to.not.eql(token2);
@@ -55,7 +68,10 @@ describe("HTTP API",function() {
         });
         it('should not double add',function(done){
             chai.request(server)
-                .post("/users/test1")
+                .post("/users")
+                .send({
+                    username: "test1"
+                })
                 .end((err,res) => {
                     expect(res).to.have.status(400);
                     done();
@@ -67,11 +83,19 @@ describe("HTTP API",function() {
     describe('message', function() {
         before(function(done) {
             chai.request(server)
-                .post('/users/alice/Al Ice')
+                .post('/users')
+                .send({
+                    username: "alice",
+                    name: "Al Ice",
+                })
                 .end(function(err,res){
                     alicetoken=res.body.token;
                     chai.request(server)
-                        .post('/users/bob/Bo Bert')
+                        .post('/users')
+                        .send({
+                            username: "bob",
+                            name: "Bo Bert"
+                        })
                         .end(function(err,res){
                             bobtoken=res.body.token;
                             done();

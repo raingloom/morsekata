@@ -10,17 +10,18 @@ let Users = require("./users");
 let Session = require("./session");
 let Messages = require("./messages");
 
-app.post('/users/:name/:fullname?',function(req, res){
+app.post('/users',function(req, res){
     try {
-        let name = req.params.name;
+        let username = req.body.username;
+        let name = req.body.name;
         Users.addUser({
-            name: name,
-            fullname: req.params.fullname,
+            name: username,
+            fullname: name,
         });
-        Session.generateFor(name);
-        Messages.createInbox(name);
+        Session.generateFor(username);
+        Messages.createInbox(username);
         res.status(200).send({
-            token: Session.getToken(name),
+            token: Session.getToken(username),
         });
     }
     catch (e) {
@@ -38,7 +39,6 @@ app.post('/users/:username/messages',function(req) {
     if(token!==undefined && Session.hasUser(token)) {
         let user = req.params.username;
         if(Messages.hasInbox(user)) {
-            console.log(Messages.getInboxContents(user));
             //TODO: check message
             Messages.send(Session.getName(token),user,req.body.message);
         } else {
