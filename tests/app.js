@@ -160,6 +160,15 @@ describe("HTTP API",function() {
                         done();
                     });
             });
+            it('should reject when X-Auth doesnt match username', function(done) {
+                chai.request(server)
+                    .get("/users/alice/messages")
+                    .set("X-Auth",bobtoken)
+                    .end((err,res) => {
+                        expect(res).to.have.status(403);
+                        done();
+                    });
+            });
         });
     });
 });
