@@ -36,6 +36,22 @@ describe("HTTP API",function() {
                 done();
             });
     });
+    it('should give different tokens for users',function(done){
+        let token1, token2;
+        chai.request(server)
+            .post("/users/testA")
+            .end((err,res) => {
+                token1=res.body.token;
+                chai.request(server)
+                    .post("/users/testB")
+                    .end((err,res) => {
+                        token2=res.body.token;
+                        expect(token1).to.not.eql(token2);
+                        //can't really make sure it NEVER happens, but at least we can make sure it doesn't happen in the trivial case
+                        done();
+                    });
+            });
+    });
     it('should not double add',function(done){
         chai.request(server)
             .post("/users/test1")
