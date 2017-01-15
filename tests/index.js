@@ -8,6 +8,14 @@ chai.use(require("chai-http"));
 let app = require("./../app");
 let server;
 
+function testForOkResponse(res) {
+    expect(res).to.have.status(200);
+    expect(res).to.be.json;
+    expect(res.body).to.have.property('token');
+    expect(res.body.token).to.be.a('string');
+    expect(res.body.token).to.have.length.above(0);
+}
+
 describe("HTTP API",function() {
     before(function() {
         server = app.listen();//let OS decide port and hostname
@@ -16,11 +24,7 @@ describe("HTTP API",function() {
         chai.request(server)
             .post("/users/test1")
             .end((err,res) => {
-                expect(res).to.have.status(200);
-                expect(res).to.be.json;
-                expect(res.body).to.have.property('token');
-                expect(res.body.token).to.be.a('string');
-                expect(res.body.token).to.have.length.above(0);
+                testForOkResponse(res);
                 done();
             });
     });
@@ -28,7 +32,7 @@ describe("HTTP API",function() {
         chai.request(server)
             .post("/users/test2/Test the Two")
             .end((err,res) => {
-                expect(res).to.have.status(200);
+                testForOkResponse(res);
                 done();
             });
     });
