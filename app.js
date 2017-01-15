@@ -51,4 +51,18 @@ app.post('/users/:username/messages',function(req, res) {
     }
 });
 
+app.get('/users/:username/messages',function(req, res) {
+    let token = req.header('X-Auth');
+    let name = req.params.username;
+    if(token!==undefined && Session.hasUser(token)) {
+        if(Session.checkToken(name,token)) {
+            
+        } else {
+            res.status(403).send();
+        }
+    } else {
+        res.status(401).send();
+    }
+});
+
 module.exports = app;

@@ -142,5 +142,24 @@ describe("HTTP API",function() {
                     });
             });
         });
+        describe("receiving",function() {
+            it('should reject without X-Auth', function(done) {
+                chai.request(server)
+                    .get("/users/alice/messages")
+                    .end((err,res) => {
+                        expect(res).to.have.status(401);
+                        done();
+                    });
+            });
+            it('should reject with invalid X-Auth', function(done) {
+                chai.request(server)
+                    .get("/users/alice/messages")
+                    .set("X-Auth","thistokenismostdefinitelywrong")
+                    .end((err,res) => {
+                        expect(res).to.have.status(401);
+                        done();
+                    });
+            });
+        });
     });
 });
