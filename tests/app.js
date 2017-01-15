@@ -8,12 +8,13 @@ chai.use(require("chai-http"));
 let app = require("./../app");
 let server;
 
-function testForOkResponse(res) {
+function testForOkResponse(res,done) {
     expect(res).to.have.status(200);
     expect(res).to.be.json;
     expect(res.body).to.have.property('token');
     expect(res.body.token).to.be.a('string');
     expect(res.body.token).to.have.length.above(0);
+    done();
 }
 
 describe("HTTP API",function() {
@@ -28,8 +29,7 @@ describe("HTTP API",function() {
                     username: "test1"
                 })
                 .end((err,res) => {
-                    testForOkResponse(res);
-                    done();
+                    testForOkResponse(res,done);
                 });
         });
         it('should add user with nickname and full name',function(done){
@@ -40,8 +40,7 @@ describe("HTTP API",function() {
                     name: "Test the Two",
                 })
                 .end((err,res) => {
-                    testForOkResponse(res);
-                    done();
+                    testForOkResponse(res,done);
                 });
         });
         it('should give different tokens for users',function(done){

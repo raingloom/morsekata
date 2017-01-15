@@ -27,7 +27,7 @@ app.post('/users',function(req, res){
     }
     catch (e) {
          if (e instanceof Users.InvalidUserError) {
-            res.status(400).send();
+            res.status(400).send(e);
         } else {
             //this should not happen, rethrow error
             throw e;
