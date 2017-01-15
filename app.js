@@ -12,13 +12,15 @@ let Messages = require("./messages");
 
 app.post('/users/:name/:fullname?',function(req, res){
     try {
+        let name = req.params.name;
         Users.addUser({
-            name: req.params.name,
+            name: name,
             fullname: req.params.fullname,
         });
-        Session.generateFor(req.params.name);
+        Session.generateFor(name);
+        Messages.createInbox(name);
         res.status(200).send({
-            token: Session.getToken(req.params.name),
+            token: Session.getToken(name),
         });
     }
     catch (e) {
@@ -33,10 +35,10 @@ app.post('/users/:name/:fullname?',function(req, res){
 
 app.post('/users/:username/messages',function(req) {
     let token = req.header('X-Auth');
-    console.log(token);
     if(token!==undefined && Session.hasUser(token)) {
         let user = req.params.username;
         if(Messages.hasInbox(user)) {
+            console.log(Messages.getInboxContents(user));
             //TODO: check message
             Messages.send(Session.getName(token),user,req.body.message);
         } else {

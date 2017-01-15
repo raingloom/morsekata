@@ -21,6 +21,9 @@ let Messages = {
     getInboxContents: function(name) {
         return Messages.Data[name];
     },
+    hasInbox: function(name) {
+        return Messages.Data[name] !== undefined;
+    },
 };
 
 module.exports = Messages;

@@ -2,9 +2,10 @@
   "name": "morsekata",
   "version": "1.0.0",
   "description": "",
-  "main": "morse.js",
+  "main": "index.js",
   "scripts": {
-    "test": "mocha --recursive ./tests"
+    "test": "mocha --recursive ./tests",
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC",

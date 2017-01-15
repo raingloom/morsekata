@@ -87,6 +87,24 @@ describe("HTTP API",function() {
                         done();
                     });
             });
+            it('should reject with malformed X-Auth', function(done) {
+                chai.request(server)
+                    .post("/users/alice/messages")
+                    .set("X-Auth","this token is most definitely wrong, it not, well, i did the best I can")
+                    .end((err,res) => {
+                        expect(res).to.have.status(400);
+                        done();
+                    });
+            });
+            it('should four o four if user does not exist on this plane of reality', function(done) {
+                chai.request(server)
+                    .post("/users/thisuserdoesntexistatleastisurehopeso/messages")
+                    .set("X-Auth",alicetoken)
+                    .end((err,res) => {
+                        expect(res).to.have.status(404);
+                        done();
+                    });
+            });
         });
     });
 });
