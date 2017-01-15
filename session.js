@@ -31,7 +31,7 @@ let Session = {
         return Session.ByToken[token];
     },
     hasUser: function(token) {
-        return Session.getName(token) === undefined;
+        return Session.getName(token) !== undefined;
     },
 };
 

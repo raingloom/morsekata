@@ -34,18 +34,19 @@ app.post('/users',function(req, res){
     }
 });
 
-app.post('/users/:username/messages',function(req) {
+app.post('/users/:username/messages',function(req, res) {
     let token = req.header('X-Auth');
     if(token!==undefined && Session.hasUser(token)) {
         let user = req.params.username;
+        let message = String(req.body.message || "");
         if(Messages.hasInbox(user)) {
             //TODO: check message
-            Messages.send(Session.getName(token),user,req.body.message);
+            Messages.send(Session.getName(token),user,message);
         } else {
-            req.status(404).send();
+            res.status(404).send();
         }
     } else {
-        req.status(401).send();
+        res.status(401).send();
     }
 });
 

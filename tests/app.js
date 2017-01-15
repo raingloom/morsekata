@@ -107,16 +107,16 @@ describe("HTTP API",function() {
                 chai.request(server)
                     .post("/users/alice/messages")
                     .end((err,res) => {
-                        expect(res).to.have.status(400);
+                        expect(res).to.have.status(401);
                         done();
                     });
             });
-            it('should reject with malformed X-Auth', function(done) {
+            it('should reject with invalid X-Auth', function(done) {
                 chai.request(server)
                     .post("/users/alice/messages")
-                    .set("X-Auth","this token is most definitely wrong, it not, well, i did the best I can")
+                    .set("X-Auth","thistokenismostdefinitelywrong")
                     .end((err,res) => {
-                        expect(res).to.have.status(400);
+                        expect(res).to.have.status(401);
                         done();
                     });
             });
