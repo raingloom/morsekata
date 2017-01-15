@@ -7,7 +7,7 @@ let Session = {
     generate: function() {
         let ret = id;
         id++;
-        return ret;
+        return String(ret);
     },
     reset: function() {
         id = 0;
