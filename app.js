@@ -9,6 +9,7 @@ app.use(bodyParser.json());
 let Users = require("./users");
 let Session = require("./session");
 let Messages = require("./messages");
+let Morse = require("./morse");
 
 app.post('/users',function(req, res){
     try {
@@ -56,7 +57,13 @@ app.get('/users/:username/messages',function(req, res) {
     let name = req.params.username;
     if(token!==undefined && Session.hasUser(token)) {
         if(Session.checkToken(name,token)) {
-            res.status(200).send(Messages.getInboxContents(name));
+            res.status(200).send(
+                Messages.getInboxContents(name)
+                .map((msg)=>{
+                    msg.message = Morse.decode(msg.message);
+                    return msg;
+                })
+            );
         } else {
             res.status(403).send();
         }

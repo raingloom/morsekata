@@ -174,7 +174,7 @@ describe("HTTP API",function() {
                     .post("/users/bob/messages")
                     .set("X-Auth",alicetoken)
                     .send({
-                        message: "test message"
+                        message: "...---..."
                     })
                     .end((err,res) => {
                         chai.request(server)
@@ -184,7 +184,7 @@ describe("HTTP API",function() {
                                 expect(res.body).to.deep.eql(
                                     [{
                                         from: "alice",
-                                        message: "test message",
+                                        message: "SOS",
                                         to: "bob",
                                     }]
                                 );

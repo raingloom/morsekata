@@ -19,7 +19,15 @@ let Messages = {
         });
     },
     getInboxContents: function(name) {
-        return Messages.Data[name];
+        let copy = [];
+        for(let msg of Messages.Data[name]) {
+            copy.push({
+                from: msg.from,
+                to: msg.to,
+                message: msg.message,
+            });
+        }
+        return copy;
     },
     hasInbox: function(name) {
         return Messages.Data[name] !== undefined;
