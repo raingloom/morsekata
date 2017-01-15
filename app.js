@@ -56,7 +56,7 @@ app.get('/users/:username/messages',function(req, res) {
     let name = req.params.username;
     if(token!==undefined && Session.hasUser(token)) {
         if(Session.checkToken(name,token)) {
-            
+            res.status(200).send(Messages.getInboxContents(name));
         } else {
             res.status(403).send();
         }

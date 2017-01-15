@@ -101,7 +101,7 @@ describe("HTTP API",function() {
                             done();
                         });
                 });
-        })
+        });
         describe('sending', function() {
             it('should reject without X-Auth', function(done) {
                 chai.request(server)
@@ -167,6 +167,29 @@ describe("HTTP API",function() {
                     .end((err,res) => {
                         expect(res).to.have.status(403);
                         done();
+                    });
+            });
+            it('should work otherwise', function(done) {
+                chai.request(server)
+                    .post("/users/bob/messages")
+                    .set("X-Auth",alicetoken)
+                    .send({
+                        message: "test message"
+                    })
+                    .end((err,res) => {
+                        chai.request(server)
+                            .get("/users/bob/messages")
+                            .set("X-Auth",bobtoken)
+                            .end((err,res) => {
+                                expect(res.body).to.deep.eql(
+                                    [{
+                                        from: "alice",
+                                        message: "test message",
+                                        to: "bob",
+                                    }]
+                                );
+                                done();
+                            });
                     });
             });
         });
