@@ -129,6 +129,18 @@ describe("HTTP API",function() {
                         done();
                     });
             });
+            it('should work with correct header and name', function(done) {
+                chai.request(server)
+                    .post("/users/alice/messages")
+                    .set("X-Auth",bobtoken)
+                    .send({
+                        message: "first post lol"
+                    })
+                    .end((err,res) => {
+                        expect(res).to.have.status(200);
+                        done();
+                    });
+            });
         });
     });
 });

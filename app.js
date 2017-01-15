@@ -42,6 +42,7 @@ app.post('/users/:username/messages',function(req, res) {
         if(Messages.hasInbox(user)) {
             //TODO: check message
             Messages.send(Session.getName(token),user,message);
+            res.status(200).send();
         } else {
             res.status(404).send();
         }

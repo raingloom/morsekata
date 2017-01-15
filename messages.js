@@ -3,7 +3,7 @@
 let Messages = {
     Data: {},
     createInbox: function(name) {
-        Messages.Data = {};
+        Messages.Data[name] = [];
     },
     clearInbox: function(name) {
         Messages.Data[name] = {};
