@@ -20,6 +20,7 @@ describe("HTTP API",function() {
                 expect(res).to.be.json;
                 expect(res.body).to.have.property('token');
                 expect(res.body.token).to.be.a('string');
+                expect(res.body.token).to.have.length.above(0);
                 done();
             });
     });
